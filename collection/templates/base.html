@@ -1,12 +1,17 @@
-
 {% load staticfiles %}
 <!doctype html>
 <html>
 <head>
-    <title><!-- Dynamically Generated --></title>
+    <title>
+        {% block title %}
+            My Hello Web App Project
+        {% endblock title %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block header %}{% endblock header %}
 </head>
 <body>
-    <!-- Dynamically Generated -->
+    {% block content %}{% endblock content %}
+    {% block footer %}{% endblock footer %}
 </body>
 </html>
