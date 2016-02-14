@@ -20,7 +20,7 @@ def load_data(url):
     obj = json.loads(modified_request)
     return obj
 
-def normalize_data(data)
+def normalize_data(data):
     normalized_data = json_normalize(data,'regions',['region','instanceType'])
     return normalized_data
 
@@ -34,7 +34,7 @@ def index(request):
     number = 6
     return render(request, 'index.html',{
         'number':number,
-        'greeting':'Hi Mackenzie!',
+        'greeting':'Welcome to HelloWebApp, the AWS Services Edition',
     })
 
 def services(request):
