@@ -31,9 +31,7 @@ print normalize_data(data)
 
 # Create your views here.
 def index(request):
-    number = 6
     return render(request, 'index.html',{
-        'number':number,
         'greeting':'Welcome to HelloWebApp, the AWS Services Edition',
     })
 
@@ -43,7 +41,8 @@ def services(request):
     spot = load_data(url1)
     data = spot['config']['regions']
     spot_data =  normalize_data(data)
-    return render(request, 'services.html',{
+    return render(request, 'index.html',{
         'spot':spot_data,
         'heading':'This is normalized data for AWS Spot instances',
     })
+
