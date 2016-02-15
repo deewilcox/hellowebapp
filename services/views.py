@@ -106,18 +106,20 @@ def services(request):
     url1 = 'http://spot-price.s3.amazonaws.com/spot.js'
     url2 = 'http://a0.awsstatic.com/pricing/1/ec2/linux-od.min.js'
 
-    spot = load_data(url1,'spot')
-    data1 = spot['config']['regions']
-    spot_data =  normalize_data(data1)
+    spot_json_object = load_data(url1,'spot')
+    spot_regions = spot_json_object['config']['regions']
+    spot_chart_data = prepare_instance_data(spot_regions)
+    spot_chart = chart_instance(spot_chart_data)
 
-    #ec2 = load_data(url2,'ec2')
-    #data2 = ec2['config']['regions']
-    #ec2_data = normalize_data(data2)
+    ec2_json_object = load_data(url2,'ec2')
+    ec2_regions = ec2_json_object['config']['regions']
+    ec2_chart_data = prepare_instance_data(ec2_regions)
+    ec2_chart = chart_instance(ec2_chart_data)
 
     return render(request, 'index.html',{
-        'spot_data':spot_data,
+        'spot_data':spot_chart,
         'spot_heading':'This is a data visualization for AWS Spot instance pricing',
-        'ec2_data':'',
+        'ec2_data':ec2_chart,
         'ec2_heading':'This is a data visualization for AWS EC2 instance pricing'
     })
 
