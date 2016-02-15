@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import urllib2
+import requests
 import re
 import json
 import demjson
