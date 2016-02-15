@@ -90,11 +90,12 @@ This function is not in use, but keeping to revisit at a later time.
 Initially, I planned to use json_normalize and pandas to plot the data. 
 However, I ran into an error getting beyond json_normalize(data,['instanceTypes',['sizes']],'region') and into the pricing data.
 It will be less efficient, but I will instead iterate over the data and built the dictionary that I need.
-"""
 
 def normalize_data(data):
     normalized_data = json_normalize(data,['instanceTypes',['sizes']],'region')
     return normalized_data
+
+"""
 
 # Define functions specific to loading views
 def index(request):
