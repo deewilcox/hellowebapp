@@ -60,8 +60,24 @@ def prepare_instance_data(data):
                         price = columns[u'prices'][u'USD']
                         if price:
                             chart_data[label_name]=round(float(price),2)
-
     return chart_data 
+
+def merge_chart_data(spot,ec2):
+    merged_dictionary = spot.copy()
+    merged_dictionary.update(ec2)
+    return merged_dictionary
+
+def sort_chart_data(chart_data,direction):
+    sorted_dictionary = {}
+    if direction == 'desc':
+        sorted_dictionary = OrderedDict(sorted(chart_data.items(), key=lambda t: t[1], Reverse=True))
+    else:
+        sorted_dictionary = OrderedDict(sorted(d.items(), key=lambda t: t[1]))
+    return sorted_dictionary
+
+def limit_chart_data(chart_data,value):
+    limited_dictinary = dict(list(chart_data.items())[:value])
+    return limited_dictionary
 
 def chart_instance(chart_data):
     labels = []
@@ -116,11 +132,20 @@ def services(request):
     ec2_regions = ec2_json_object['config']['regions']
     ec2_chart_data = prepare_instance_data(ec2_regions)
     ec2_chart = chart_instance(ec2_chart_data)
+    
+    # Combine the data to return most and least expensive instances
+    combined_data = merge_chart_data(spot_chart_data,ec2_chart_data)
+    expensive_sorted_data = sort_chart_data(combined_data,'desc')
+    most_expensive_instances = limit_chart_data(expensive_sorted_data,10)
+    cheapest_sorted_data = sort_chart_data(combined_data,'asc')
+    cheapest_instances = limit_chart_data(sorted_data,1)
 
     return render(request, 'index.html',{
         'spot_data':spot_chart,
         'spot_heading':'This is a data visualization for AWS Spot instance pricing',
         'ec2_data':ec2_chart,
         'ec2_heading':'This is a data visualization for AWS EC2 instance pricing'
+        'most_expensive':most_expensive_instances,
+        'cheapest':cheapest_instances,
     })
 
