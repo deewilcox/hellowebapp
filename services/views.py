@@ -2,7 +2,12 @@ from django.shortcuts import render
 import urllib2
 import re
 import json
-from pandas.io.json import json_normalize
+import demjson
+imprt matplotlib.pyplot as plt
+import numpy as np
+
+#import pandas
+#from pandas.io.json import json_normalize
 
 # Define functions specific to the application
 
@@ -12,7 +17,7 @@ So, we need to clean them up so we can parse the file.
 This function takes in the API endpoint URL, cleans up the JS callback, parses the JSON, and returns a normalized JSON object.
 """    
 
-define clean_output(json_string):
+def clean_output(json_string):
     modified_json_string = re.sub(re.compile(r'/\*.*\*/\n', re.DOTALL), '', json_string)
     modified_json_string = re.sub(r'^callback\(', '', modified_json_string)
     modified_json_string = re.sub(r'\);*$', '', modified_json_string)
