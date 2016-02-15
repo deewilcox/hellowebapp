@@ -3,7 +3,7 @@ import urllib2
 import re
 import json
 import demjson
-imprt matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 #import pandas
